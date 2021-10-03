@@ -17,5 +17,7 @@ jobs:
       - uses: actions-js/push@master
         with: 
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          author_email: yanik.ceulemans@gmail.com
+          author_name: Yanik Ceulemans
           force: true
           branch: master
