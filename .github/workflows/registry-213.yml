@@ -16,8 +16,6 @@ jobs:
           echo 'another line' >> local-changes.txt
       - uses: actions-js/push@master
         with: 
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          author_email: yanik.ceulemans@gmail.com
-          author_name: Yanik Ceulemans
+          github_token: ${{ secrets.PERSONAL_TOKEN }}
           force: true
           branch: master
