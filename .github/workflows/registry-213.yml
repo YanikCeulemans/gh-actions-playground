@@ -27,4 +27,4 @@ jobs:
           author_email: yanik.ceulemans@gmail.com
           author_name: Yanik Ceulemans
           branch: actions-tests/test-branch-1
-          repository: ${{env.OWNER}}/${{env.REPO}}
+          repository: ${{ env.OWNER }}/${{ env.REPO }}
