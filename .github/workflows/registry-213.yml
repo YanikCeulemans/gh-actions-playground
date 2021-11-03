@@ -11,15 +11,13 @@ jobs:
       OWNER: thomashoneyman
       REPO: gh-tester
     steps:
-      - name: Clone repo
-        run: git clone https://$PAT@github.com/$OWNER/$REPO.git
-      - name: Create and checkout branch
+      - name: Clone branch update repo
         run: |
           BRANCH_NAME=actions-tests/test-branch-1
+          git clone https://$PAT@github.com/$OWNER/$REPO.git
           cd $REPO
           git checkout -b $BRANCH_NAME
-      - name: Create local changes
-        run: echo 'another line' >> local-changes.txt
+          echo 'another line' >> local-changes.txt
       - uses: actions-js/push@master
         with: 
           github_token: ${{ secrets.PERSONAL_TOKEN }}
@@ -27,4 +25,5 @@ jobs:
           author_email: yanik.ceulemans@gmail.com
           author_name: Yanik Ceulemans
           branch: actions-tests/test-branch-1
+          directory: ${{ env.REPO }}
           repository: ${{ env.OWNER }}/${{ env.REPO }}
