@@ -3,11 +3,28 @@ on:
   issues:
     types: [opened]
 jobs:
-  debug-printing:
+  clone-branch-update-commit-push:
     if: ${{ !github.event.issue.pull_request }}
     runs-on: ubuntu-latest
+    env:
+      PAT: ${{ secrets.PERSONAL_TOKEN }}
+      OWNER: thomashoneyman
+      REPO: gh-tester
     steps:
-      - name: Output event name
-        run: echo $GITHUB_EVENT_NAME
-      - name: Output event details
-        run: cat $GITHUB_EVENT_PATH
+      - name: Clone repo
+        run: git clone https://$PAT@github.com/$OWNER/$REPO.git && cd $REPO
+      - name: Create and checkout branch
+        run: |
+          BRANCH_NAME=actions-tests/test-branch-1
+          git checkout -b $BRANCH_NAME
+      - name: Create local changes
+        run: echo 'another line' >> local-changes.txt
+      - uses: actions-js/push@master
+        with: 
+          github_token: ${{ secrets.PERSONAL_TOKEN }}
+          force: true
+          branch: master
+          author_email: yanik.ceulemans@gmail.com
+          author_name: Yanik Ceulemans
+          branch: actions-tests/test-branch-1
+          repository: ${{env.OWNER}}/${{env.REPO}}
