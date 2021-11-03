@@ -12,10 +12,11 @@ jobs:
       REPO: gh-tester
     steps:
       - name: Clone repo
-        run: git clone https://$PAT@github.com/$OWNER/$REPO.git && cd $REPO
+        run: git clone https://$PAT@github.com/$OWNER/$REPO.git
       - name: Create and checkout branch
         run: |
           BRANCH_NAME=actions-tests/test-branch-1
+          cd $REPO
           git checkout -b $BRANCH_NAME
       - name: Create local changes
         run: echo 'another line' >> local-changes.txt
